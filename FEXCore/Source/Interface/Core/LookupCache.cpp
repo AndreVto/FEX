@@ -71,8 +71,8 @@ LookupCache::LookupCache(FEXCore::Context::ContextImpl* CTX)
 }
 
 LookupCache::~LookupCache() {
-  FEXCore::Allocator::VirtualFree(reinterpret_cast<void*>(PagePointer), TotalCacheSize);
   ctx->SyscallHandler->UnmarkOvercommitRange(PagePointer, TotalCacheSize);
+  FEXCore::Allocator::VirtualFree(reinterpret_cast<void*>(PagePointer), TotalCacheSize);
 
   // No need to free BlockLinks map.
   // These will get freed when their memory allocators are deallocated.
